@@ -12,6 +12,37 @@
 
 <body>
     <div class="container">
+        <?php
+        if (isset($_POST["submit"])) {
+            $fullname = $_POST["fullname"];
+            $email = $_POST["email"];
+            $password = $_POST["password"];
+            $passwordRepeat = $_POST["repeat_password"];
+
+            $errors = array();
+
+            if (empty($fullname) or empty($email) or empty($password) or empty($passwordRepeat)) {
+                array_push($errors, "All fields are required.");
+            }
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                array_push($errors, "Invalid email format.");
+            }
+            if (strlen($password) < 8) {
+                array_push($errors, "Password must be at least 8 characters long.");
+            }
+            if ($password !== $passwordRepeat) {
+                array_push($errors, "Passwords do not match.");
+            }
+            if (count($errors) > 0) {
+                foreach ($errors as $error) {
+                    echo "<div class='alert alert-danger'>$error</div>";
+                }
+            } else {
+                // We will insert the data into the database here
+        
+            }
+        }
+        ?>
         <form action="registration.php" method="post">
             <div class="form-group">
                 <input type="text" class="form-control" name="fullname" placeholder="Full Name:">
@@ -23,10 +54,10 @@
                 <input type="password" class="form-control" name="password" placeholder="Password:">
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" name="repeat_password" placeholder="Repeat Password:">
+                <input type="password" class="form-control" name="repeat_password" placeholder="Repeat Password:">
             </div>
             <div class="form-btn">
-                <input type="Submit" class="btn btn-primary" value="Register" placeholder="submit">
+                <input type="submit" class="btn btn-primary" value="Register" name="submit">
             </div>
         </form>
     </div>

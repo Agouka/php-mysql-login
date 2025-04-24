@@ -83,6 +83,9 @@ if (isset($_SESSION["user"])) {
                 <input type="submit" class="btn btn-primary" value="Register" name="submit">
             </div>
         </form>
+        <div>
+            <p>Already registered? <a href="login.php">Login Here</a></p>
+        </div>
     </div>
 </body>
 
